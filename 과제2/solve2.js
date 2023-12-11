@@ -1,4 +1,33 @@
 // 여기에 정답을 작성해주세요
+class Selector {
+  constructor(param) {
+    // this.element = document.querySelectorAll(param);
+    this.element = param
+    console.log(this);
+  }
+  addClass(param) {
+    console.log(this.element, param);
+    return this;
+  }
+  removeClass(param) {
+    console.log(this.element, param);
+    return this;
+  }
+  css(param) {
+    console.log(this.element, param);
+    return this;
+  }
+  fadeOut(param) {
+    console.log(this.element, param);
+    return this;
+  }
+}
+
+function $(param) {
+  // 객체 선언 후 리턴
+  let target = new Selector(param);
+  return target;
+}
 
 
 
