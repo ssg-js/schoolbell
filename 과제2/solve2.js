@@ -1,31 +1,57 @@
 // 여기에 정답을 작성해주세요
+
 class Selector {
-  constructor(param) {
-    // this.element = document.querySelectorAll(param);
-    this.element = param
-    console.log(this);
+  // 생성자에서 인자에 해당하는 요소들을 배열로 element에 저장합니다.
+  constructor(args) {
+    this.element = document.querySelectorAll(args);
   }
-  addClass(param) {
-    console.log(this.element, param);
+  // 메서드 체이닝이 가능하도록 메서드 실행 후 객체를 반환합니다.
+  addClass(args) {
+    this.element.forEach((cur) => {
+      cur.classList.add(args);
+    });
     return this;
   }
-  removeClass(param) {
-    console.log(this.element, param);
+  removeClass(args) {
+    this.element.forEach((cur) => {
+      cur.classList.remove(args);
+    });
     return this;
   }
-  css(param) {
-    console.log(this.element, param);
+  css(...args) {
+    if (typeof args[0] == 'string') { // 문자열로 들어오는 경우입니다.
+      this.element.forEach((cur) => {
+        cur.style[args[0]] = args[1];
+      });
+    } else { // object로 들어오는 경우입니다.
+      this.element.forEach((cur) => {
+        for (let v in args[0]) {
+          if (isNaN(args[0][v])) { // (숫자만으로 이뤄지지 않은 경우) = 'px'이 붙은 경우
+            cur.style[v] = args[0][v];
+          } else {
+            cur.style[v] = args[0][v] + 'px';
+          }
+        }
+      });
+    }
     return this;
   }
-  fadeOut(param) {
-    console.log(this.element, param);
+  fadeOut(args) { // duration 기본값 400, easing 기본값 swing(0.5 - Math.cos( p * Math.PI ) / 2)
+    this.element.forEach((cur) => {
+      cur.style.transition = 'opacity 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000)';
+      cur.style.opacity = 0;
+      setTimeout((v) => {
+        v.style.display = 'none';
+      }, 400, cur);
+      args();
+    });
     return this;
   }
 }
 
-function $(param) {
-  // 객체 선언 후 리턴
-  let target = new Selector(param);
+// 객체 생성 후 반환합니다.
+function $(args) {
+  let target = new Selector(args);
   return target;
 }
 
