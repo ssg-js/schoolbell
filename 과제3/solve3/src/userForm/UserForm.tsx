@@ -2,40 +2,38 @@ import React, { useEffect, useState } from 'react';
 import './UserForm.css'
 import { CgCloseR } from "react-icons/cg";
 
-interface props {
-  number: number;
+interface userInfo {
+  name: string | undefined;
+  password: string | undefined;
 }
 
+interface props {
+  number: number;
+  userInfo: userInfo;
+  infoHandler: (idx: number, args: userInfo) => void;
+}
 
 function UserForm(props: props) {
-  const [name, setName] = useState<string>(); // 유저 네임 상태
-  const [password, setPassword] = useState<string>(); // 비밀번호 상태
-  const [nameCheck, setNameCheck] = useState<boolean>(false); // 이름 3글자 이상인지 체크
-  const [passwordCheck, setPasswordCheck] = useState<boolean>(false) // 비밀번호 글자 이상 체크 상태
 
-
-  const checkHandler = () => {
-    if (typeof (name) != 'undefined') {
-      if (name.length < 3) {
-        setNameCheck(true);
-      } else {
-        setNameCheck(false);
-      }
-    }
-    if (typeof (password) != 'undefined') {
-      if (password.length < 6) {
-        setPasswordCheck(true);
-      } else {
-        setPasswordCheck(false);
+  const nameWarning = () => {
+    if (props.userInfo.name !== undefined) {
+      if (props.userInfo.name.length === 0) {
+        return (<div className='warn'>Name is required.</div>);
+      } else if (props.userInfo.name.length < 3) {
+        return (<div className='warn'>Name must be at least 3 characters long.</div>);
       }
     }
   }
 
-  // 입력에 따른 로직들
-  useEffect(() => {
-    checkHandler();
-    console.log(name, password);
-  }, [name, password])
+  const passwordWarning = () => {
+    if (props.userInfo.password !== undefined) {
+      if (props.userInfo.password.length === 0) {
+        return (<div className='warn'>password is required.</div>);
+      } else if (props.userInfo.password.length < 6) {
+        return (<div className='warn'>password must be at least 6 characters long.</div>);
+      }
+    }
+  }
 
   return (
     <div className='userBox'>
@@ -45,13 +43,13 @@ function UserForm(props: props) {
       </div>
       <div className='set'>
         <div className='type'>Name</div>
-        <input type="text" id='box' onChange={(e) => { setName(e.target.value); }} />
-        {nameCheck && <div className='warn'>Name must be at least 3 characters long.</div>}
+        <input type="text" id='box' onBlur={(e) => { props.infoHandler(props.number, { ...props.userInfo, name: e.target.value }); }} onChange={(e) => { props.infoHandler(props.number, { ...props.userInfo, name: e.target.value }); }} />
+        {nameWarning()}
       </div>
       <div className='set'>
         <div className='type'>Password</div>
-        <input type="text" id='box' onChange={(e) => { setPassword(e.target.value); }} />
-        {passwordCheck && <div className='warn'>Password must be at least 6 characters long.</div>}
+        <input type="text" id='box' onBlur={(e) => { props.infoHandler(props.number, { ...props.userInfo, password: e.target.value }); }} onChange={(e) => { props.infoHandler(props.number, { ...props.userInfo, password: e.target.value }); }} />
+        {passwordWarning()}
       </div>
     </div>
   );
