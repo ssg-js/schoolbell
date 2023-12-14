@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './UserForm.css'
+import { CgCloseR } from "react-icons/cg";
+
+interface props {
+  number: number;
+}
 
 
-function UserForm() {
+function UserForm(props: props) {
   const [name, setName] = useState<string>(); // 유저 네임 상태
   const [password, setPassword] = useState<string>(); // 비밀번호 상태
   const [nameCheck, setNameCheck] = useState<boolean>(false); // 이름 3글자 이상인지 체크
@@ -33,20 +38,20 @@ function UserForm() {
   }, [name, password])
 
   return (
-    <div id='userBox'>
+    <div className='userBox'>
       <div id='userInfo' className='set'>
-        <h3>User - { }</h3>
-        <div>x</div>
+        <h4>User - {props.number}</h4>
+        <CgCloseR />
       </div>
       <div className='set'>
         <div className='type'>Name</div>
         <input type="text" id='box' onChange={(e) => { setName(e.target.value); }} />
-        {nameCheck && <div>Name must be at least 3 characters long</div>}
+        {nameCheck && <div className='warn'>Name must be at least 3 characters long.</div>}
       </div>
       <div className='set'>
         <div className='type'>Password</div>
         <input type="text" id='box' onChange={(e) => { setPassword(e.target.value); }} />
-        {passwordCheck && <div>Password must be at least 6 characters long</div>}
+        {passwordCheck && <div className='warn'>Password must be at least 6 characters long.</div>}
       </div>
     </div>
   );

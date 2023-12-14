@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import UserForm from './userForm/UserForm';
 
 function App() {
+  const [arr, setArr] = useState<number[]>([0]);
+
+  const arrHandler = () => {
+    setArr([...arr, arr.length]);
+  }
+
+
   return (
     <div className="App">
-      <UserForm></UserForm>
+      {arr.map((n) => { return <UserForm number={n} /> })}
+      <div className='button'>
+        <button onClick={arrHandler}>Add User</button>
+        <button>Confirm</button>
+      </div>
 
     </div>
   );
