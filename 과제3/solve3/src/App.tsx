@@ -30,6 +30,14 @@ function App() {
     setUsers(tempArr);
   }
 
+  // 해당 유저폼을 제거합니다. => 에러
+  const xboxHandler = (idx: number) => {
+    let copyUsers = users.filter((v, i) => i !== idx);
+    console.log(copyUsers);
+    setUsers([...copyUsers]);
+  }
+
+  // 미완성
   const clickHandler = () => {
     setConfirmClicked(true);
     let copyUsers = [...users];
@@ -73,7 +81,7 @@ function App() {
 
   return (
     <div className="App">
-      {users.map((v: userInfo, idx: number) => { return <UserForm number={idx} userInfo={v} infoHandler={infoHandler} key={idx} duplicatedCheck={duplicatedCheck} /> })}
+      {users.map((v: userInfo, idx: number) => { return <UserForm number={idx} userInfo={v} infoHandler={infoHandler} key={idx} duplicatedCheck={duplicatedCheck} xboxHandler={xboxHandler} /> })}
       {confirmClicked && <ConfirmBox />}
       <div className='button'>
         <button onClick={addHandler}>Add User</button>

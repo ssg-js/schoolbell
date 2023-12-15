@@ -10,7 +10,7 @@
 }
 
 #userInfo {
-  justify-content: start;
+  justify-content: stretch;
   display: flex;
   align-items: center;
 }
@@ -33,4 +33,8 @@
 #box {
   height: 20px;
   width: 100%;
+}
+
+.xbox {
+  margin-left: auto;
 }

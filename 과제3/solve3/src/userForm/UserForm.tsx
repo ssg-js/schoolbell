@@ -13,6 +13,7 @@ interface props {
   userInfo: userInfo;
   infoHandler: (idx: number, args: userInfo) => void;
   duplicatedCheck: () => void;
+  xboxHandler: (idx: number) => void;
 }
 
 function UserForm(props: props) {
@@ -61,7 +62,7 @@ function UserForm(props: props) {
     <div className='userBox'>
       <div id='userInfo' className='set'>
         <h4>User - {props.number}</h4>
-        <CgCloseR />
+        <CgCloseR className='xbox' onClick={() => props.xboxHandler(props.number)} />
       </div>
       <div className='set'>
         <div className='type'>Name</div>
