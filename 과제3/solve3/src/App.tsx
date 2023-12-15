@@ -32,6 +32,7 @@ function App() {
 
   const clickHandler = () => {
     setConfirmClicked(true);
+    let copyUsers = [...users];
     // 유저정보를 초기화합니다.
     setUsers([{ name: undefined, password: undefined, duplicated: '' }]);
   }
