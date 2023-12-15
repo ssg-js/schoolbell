@@ -5,13 +5,14 @@ import { CgCloseR } from "react-icons/cg";
 interface userInfo {
   name: string | undefined;
   password: string | undefined;
-  duplicated: boolean;
+  duplicated: string;
 }
 
 interface props {
   number: number;
   userInfo: userInfo;
   infoHandler: (idx: number, args: userInfo) => void;
+  duplicatedCheck: () => void;
 }
 
 function UserForm(props: props) {
@@ -23,8 +24,8 @@ function UserForm(props: props) {
       } else if (props.userInfo.name.length < 3) {
         return (<div className='warn'>Name must be at least 3 characters long.</div>);
       } else { // 이름이 3자 이상인 경우입니다.
-        if (props.userInfo.duplicated === true) {
-          return (<div className='warn'>The name '{props.userInfo.name}' is duplicated.</div>);
+        if (props.userInfo.duplicated.length > 0) {
+          return (<div className='warn'>The name '{props.userInfo.duplicated}' is duplicated.</div>);
         }
       }
     }
@@ -45,8 +46,8 @@ function UserForm(props: props) {
   const nameBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
       props.infoHandler(props.number, { ...props.userInfo, name: e.target.value });
-      console.log('???');
     }
+    props.duplicatedCheck();
   }
 
   // password 처음 클릭했을때, undefined => 0으로 값을 바꿔줍니다.
