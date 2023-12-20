@@ -3,6 +3,7 @@ import './UserForm.css'
 import { CgCloseR } from "react-icons/cg";
 
 interface userInfo {
+  id: number;
   name: string | undefined;
   password: string | undefined;
   duplicated: string;
@@ -62,7 +63,7 @@ function UserForm(props: props) {
     <div className='userBox'>
       <div id='userInfo' className='set'>
         <h4>User - {props.number}</h4>
-        <CgCloseR className='xbox' onClick={() => props.xboxHandler(props.number)} />
+        <CgCloseR className='xbox' onClick={() => props.xboxHandler(props.userInfo.id)} />
       </div>
       <div className='set'>
         <div className='type'>Name</div>

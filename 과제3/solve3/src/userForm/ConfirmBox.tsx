@@ -1,9 +1,27 @@
 import React from 'react';
 
-function ConfirmBox() {
+interface userInfo {
+  id: number;
+  name: string | undefined;
+  password: string | undefined;
+  duplicated: string;
+}
+
+interface props {
+  userFormList: userInfo[];
+}
+
+function ConfirmBox(props: props) {
   return (
     <div>
-      Confirm
+      {props.userFormList.map((v) => {
+        return (
+          <div>
+            <p>Name : {v.name}</p>
+            <p>Password : {v.password}</p>
+          </div>
+        )
+      })}
     </div>
   );
 }
