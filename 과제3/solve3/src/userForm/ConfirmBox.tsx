@@ -1,4 +1,5 @@
 import React from 'react';
+import './ConfirmBox.css'
 
 interface userInfo {
   id: number;
@@ -13,7 +14,7 @@ interface props {
 
 function ConfirmBox(props: props) {
   return (
-    <div>
+    <div className='confirmbox'>
       {props.userFormList.map((v) => {
         return (
           <div>
